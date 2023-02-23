@@ -34,7 +34,7 @@ def getPastStories():
 def getComments(story_id):
     return fetchComments(story_id)
 
-def getAPI():
+async def getAPI():
     # if there are items inside the news collection then put it to past stories and clear the current collection
     if news_collection.count_documents({}) != 0:
         query = news_collection.find().sort("score", -1).limit(10)
@@ -77,7 +77,7 @@ def checkCache():
         getAPI()
     return
 
-def getRequest(url):
+async def getRequest(url):
     # Getting the response from the requests.
     session = requests.Session()
     getJson = json.loads(session.get(url).text)
